@@ -17,13 +17,6 @@
 
 
 
-  <script>
-  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
-  daovoice('init', {
-      app_id: "119284c3"
-    });
-  daovoice('update');
-  </script>
 
 
 <script id="hexo-configurations">
@@ -203,7 +196,7 @@
 <li>Recording  some of my <em>article reviews</em>, partly to the current significant trends in my research area, and partly to finance and current affairs.</li>
 </ul>
 <p>Such blogs are ubiquitous, but <strong>welcome</strong>, and <strong>have a good day!</strong></p>
-<h1 id="Contanct-me"><a href="#Contanct-me" class="headerlink" title="Contanct me"></a>Contanct me</h1><p><strong>E-Mail:</strong> <a href="mailto:&#106;&#x75;&#x6e;&#x6a;&#105;&#101;&#46;&#x6d;&#117;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#104;&#x66;&#x75;&#116;&#x2e;&#101;&#x64;&#x75;&#x2e;&#99;&#x6e;">&#106;&#x75;&#x6e;&#x6a;&#105;&#101;&#46;&#x6d;&#117;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#104;&#x66;&#x75;&#116;&#x2e;&#101;&#x64;&#x75;&#x2e;&#99;&#x6e;</a></p>
+<h1 id="Contanct-me"><a href="#Contanct-me" class="headerlink" title="Contanct me"></a>Contanct me</h1><p><strong>E-Mail:</strong> <a href="mailto:&#106;&#x75;&#110;&#106;&#x69;&#101;&#x2e;&#109;&#x75;&#64;&#109;&#97;&#x69;&#x6c;&#46;&#x68;&#102;&#117;&#x74;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;">&#106;&#x75;&#110;&#106;&#x69;&#101;&#x2e;&#109;&#x75;&#64;&#109;&#97;&#x69;&#x6c;&#46;&#x68;&#102;&#117;&#x74;&#46;&#101;&#x64;&#117;&#46;&#x63;&#110;</a></p>
 <p><strong>Wechat:</strong> 19980744213</p>
 <h1 id="Copyright"><a href="#Copyright" class="headerlink" title="Copyright"></a>Copyright</h1><p>You are free to share and modify the content of articles, but please do not use them for <strong>business purposes or political occasions</strong>. Besides, there are no other restrictions.</p>
 
@@ -494,6 +487,74 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.16/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+
+var langName = 'en',
+    langMode = {	
+        "nick": "Name",
+        "mail": "E-Mail(optional)",
+        "link": "Website(optional)",
+        "nickFail":"Name cannot be less than 3 bytes.",
+        "mailFail":"Please confirm your email address.",
+        "sofa": "No comment yet.",
+        "submit": "Submit",
+        "reply": "Reply",
+        "cancelReply": "Cancel reply",
+        "comments": "Comments",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "continue": "Continue",
+        "more": "Load More...",
+        "preview": "Preview",
+        "emoji": "Emoji",
+        "expand": "See more....",
+        "seconds": "seconds ago",
+        "minutes": "minutes ago",
+        "hours": "hours ago",
+        "days": "days ago",
+        "now": "just now",
+        "uploading":"Uploading ...",
+        "uploadDone":"Upload completed!",
+        "busy":"Submit is busy, please wait...",
+        "code-98":"Valine initialization failed, please check your version of av-min.js.",
+        "code-99": "Valine initialization failed, Please check the `el` element in the init method.",
+        "code-100": "Valine initialization failed, Please check your appId and appKey.",
+        "code-140":"The total number of API calls today has exceeded the development version limit.",
+        "code-401": "Unauthorized operation, Please check your appId and appKey.",
+        "code-403": "Access denied by API domain white list, Please check your security domain."
+    };
+
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'lAPkxWbusOfpirlyQb0cc6aj-gzGzoHsz',
+      appKey     : 'UCm8T5n7qLDUimXWTU9zyKqM',
+      placeholder: "Please feel free to leave your comments here!",
+      avatar     : 'mm# Gravatar style',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+         
+      langMode    :langMode,
+      lang       : 'langName' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : '',
+      requiredFields: ['nick'], 
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
