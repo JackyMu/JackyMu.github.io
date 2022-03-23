@@ -32,8 +32,9 @@
 <meta property="og:description" content="The previous blog talked about carbon sequestration technology from the prevalence of electric vehicles. For a student who use GIS to visualize information, how to calculate the amount of carbon seque">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/2022/03/23/carbon1/1.png">
+<meta property="og:image" content="http://example.com/2022/03/23/carbon1/image-20220323201901570.png">
 <meta property="article:published_time" content="2022-03-23T03:03:17.000Z">
-<meta property="article:modified_time" content="2022-03-23T11:19:50.033Z">
+<meta property="article:modified_time" content="2022-03-23T12:32:50.963Z">
 <meta property="article:author" content="Jacky Mu">
 <meta property="article:tag" content="gis">
 <meta property="article:tag" content="reviews">
@@ -241,26 +242,17 @@
 
       
         <p>The previous blog talked about carbon sequestration technology from the prevalence of electric vehicles. For a student who use GIS to visualize information, how to calculate the amount of carbon sequestration in forests is an interesting problem I’d like to figure out. After consulting a few papers, I found an appropriate method.</p>
-<h2 id="Method-selection"><a href="#Method-selection" class="headerlink" title="Method selection"></a>Method selection</h2><p>The amount of carbon dioxide sequestered by forests and their products is determined by various factors, such as forest area, tree species, age, biomass, climate, and temperature, which can cause significant changes in the amount of carbon sequestered by forests over a certain period of time. Therefore, for such a complex assessment and prediction system, we adopted the <strong>forest stock conversion factor method</strong> to solve this problem. This method can not only avoid the tedious carbon density measurement, but also effectively reduce the measurement cost in practice.</p>
+<span id="more"></span>
+<h2 id="Method-selection"><a href="#Method-selection" class="headerlink" title="Method selection"></a>Method selection</h2><p>The amount of carbon dioxide sequestered by forests and their products is determined by various factors, such as forest area, tree species, age, biomass, climate, and temperature, which can cause significant changes in the amount of carbon sequestered by forests over a certain period. Therefore, for such a complex assessment and prediction system, the <strong>forest stock conversion factor method</strong> is raised to solve this problem. </p>
+<p>This method can not only avoid the tedious carbon density measurement, but also effectively reduce the measurement cost in practice.</p>
 <p><img src="/2022/03/23/carbon1/1.png" alt="1"></p>
 <p><em>If all of the above factors are taken into account, it will significantly increase the difficulty of quantifying this problem.</em></p>
 <h2 id="Formula"><a href="#Formula" class="headerlink" title="Formula"></a>Formula</h2><p> The forest stock conversion factor method can calculate the carbon sequestration and stock by establishing a linear relationship between forest stock and forest area.   </p>
 <p>The basic calculation process is as follows: </p>
 <script type="math/tex; mode=display">
 C F_{1}=\sum\left(S_{i j} \times C_{i j}\right)=\sum\left(S_{i j} \times V_{i j} \times \delta \times \rho \times \gamma\right)</script><script type="math/tex; mode=display">
-C F_{2}=\sum\left(S_{i j} \times C_{i j}\right)+\alpha \sum\left(S_{i j} \times C_{i j}\right)+\beta \sum\left(S_{i j} \times C_{i j}\right)</script><ul>
-<li>$\begin{equation}<br>C F_{1} \text { is the amount of carbon sequestered by forest biomass; }<br>\end{equation}$</li>
-<li>$<br>\begin{equation}<br>C F_{2} \text { is the amount of carbon sequestered by the forest; }<br>\end{equation}<br>$</li>
-<li>$  \begin{equation}<br> S_{i j} \text { is the area of type } \mathrm{j} \text { forests in type } \mathrm{i} \text { areas; }<br> \end{equation}$</li>
-<li>$<br>\begin{equation}<br>C_{i j} \text { is the biomass carbon density of forest type j in type i areas; }<br>\end{equation}$</li>
-<li>$<br>\begin{equation}<br>α \text { is the carbon conversion factor of understory plants,}<br>\end{equation}$<em>which serves to calculate the amount of carbon sequestered by understory plants (including apoplastic litter) based on forest biomass;</em></li>
-<li>$\begin{equation}<br>\beta \text { is the forest land carbon conversion factor, }<br>\end{equation}$</li>
-<li>$\begin{equation}<br>V_{i j} \text { is the storage volume per unit area of forest type } \mathrm{j} \text { in type } \mathrm{i} \text { area; }<br>\end{equation}$</li>
-<li>$\begin{equation}<br>\delta \text { is the biomass expansion factor, }<br>\end{equation}$ <em>using which the tree stock can be converted to tree−dominated bioaccumulation;</em></li>
-<li>$\begin{equation}<br>\rho \text { is the volume factor, }<br>\end{equation} $<em>which is a conversion factor for converting the total forest biomass accumulation to dry weight;</em></li>
-<li>$\begin{equation}<br>\gamma \text { is the carbon content,  }<br>\end{equation}$<em>which is a conversion factor for the purpose of converting biomass dry weight to carbon sequestration.</em></li>
-</ul>
-<p>Many of the variables here can be substituted according to the international generic IPCC default common values, then we can assess the current carbon stock of the forest.</p>
+C F_{2}=\sum\left(S_{i j} \times C_{i j}\right)+\alpha \sum\left(S_{i j} \times C_{i j}\right)+\beta \sum\left(S_{i j} \times C_{i j}\right)</script><p> <img src="/2022/03/23/carbon1/image-20220323201901570.png" alt="image-20220323201901570"></p>
+<p>Many of the variables here can be substituted according to the international generic IPCC default common values, the sum of carbon sequestered by forest biomass and the forest is the total forest carbon stock, and this is the way how to use the forest stock conversion factor method to assess the current carbon stock of the forest.</p>
 
     </div>
 
@@ -490,6 +482,61 @@ C F_{2}=\sum\left(S_{i j} \times C_{i j}\right)+\alpha \sum\left(S_{i j} \times 
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
