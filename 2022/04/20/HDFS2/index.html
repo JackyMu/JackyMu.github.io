@@ -24,15 +24,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jacky&#39;s Blog">
-<meta property="og:url" content="http://example.com/archives/2022/04/index.html">
+  <meta name="description" content="Last time I briefly introduced HDFS and  already knew the definition of Block and the architecture of HDFS. In this blog, I will continue to explain the process of writing and reading data in HDFS and">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop(HDFS) —Write&#x2F;Read process">
+<meta property="og:url" content="http://example.com/2022/04/20/HDFS2/index.html">
 <meta property="og:site_name" content="Jacky&#39;s Blog">
+<meta property="og:description" content="Last time I briefly introduced HDFS and  already knew the definition of Block and the architecture of HDFS. In this blog, I will continue to explain the process of writing and reading data in HDFS and">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/04/20/HDFS2/w.png">
+<meta property="og:image" content="http://example.com/2022/04/20/HDFS2/r.png">
+<meta property="article:published_time" content="2022-04-20T13:20:23.000Z">
+<meta property="article:modified_time" content="2022-04-20T16:51:54.321Z">
 <meta property="article:author" content="Jacky Mu">
+<meta property="article:tag" content="big data">
+<meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/20/HDFS2/w.png">
 
-<link rel="canonical" href="http://example.com/archives/2022/04/">
+<link rel="canonical" href="http://example.com/2022/04/20/HDFS2/">
 
 
 <script id="page-configurations">
@@ -40,12 +49,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Jacky's Blog</title>
+  <title>Hadoop(HDFS) —Write/Read process | Jacky's Blog</title>
   
 
 
@@ -158,76 +167,145 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/20/HDFS2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/10.jpg">
+      <meta itemprop="name" content="Jacky Mu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jacky's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop(HDFS) —Write/Read process
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-20 21:20:23" itemprop="dateCreated datePublished" datetime="2022-04-20T21:20:23+08:00">2022-04-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Study-notes/" itemprop="url" rel="index"><span itemprop="name">Study notes</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 4 posts in total. Keep on posting.</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/04/20/HDFS2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/20/HDFS2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
+        <p>Last time I briefly introduced HDFS and  already knew the definition of Block and the architecture of HDFS. In this blog, I will continue to explain the process of writing and reading data in HDFS and I tried to make some pics to simplify the description of the text.</p>
+<h2 id="The-process-of-writing-data-in-HDFS"><a href="#The-process-of-writing-data-in-HDFS" class="headerlink" title="The process of writing data in HDFS"></a>The process of writing data in HDFS</h2><p><img src="/2022/04/20/HDFS2/w.png" alt="w"></p>
+<center>The process of writing data in HDFS</center>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<span id="more"></span>
+<p><strong>Step 1:</strong> The client requests the NameNode to upload files through the Distributed FileSystem module, and the NameNode checks whether the target file already exists and whether the parent directory exists.</p>
+<p><strong>Step 2:</strong> NameNode returns whether it can be uploaded.</p>
+<p><strong>Step 3:</strong> The client requests to upload the first block.</p>
+<p><strong>Step 4:</strong> NameNode returns 3 DataNode nodes, namely DataNode 1, DataNode 2, and DataNode 3.</p>
+<p><strong>Step 5:</strong> The client requests DataNode 1 to upload data through the FSDataOutputStream module. When DataNode 1 receives the request, it will continue to call DataNode 2, and then DataNode 2 calls DataNode 3 to complete the communication pipeline.</p>
+<p><strong>Step 6:</strong> DataNode 1, DataNode 2, and DataNode 3 respond to client step by step.</p>
+<p><strong>Step 7: </strong>The client starts to upload the first block to DataNode 1 (first read data from the disk and put it into a local memory cache). DataNode 1 receives a Packet that will be passed to DataNode 2. DataNode 2 will give the data to DataNode 2, then to DataNode 3; DataNode 1 will put a reply queue to wait for a reply after a packet is sent.</p>
+<p><strong>Step 8:</strong> When the transmission of a block is completed, the client will request the NameNode again to upload the server of the second block. (then repeat steps 3-7 for the next Block).</p>
+<hr>
+<h2 id="The-process-of-reading-data-in-HDFS"><a href="#The-process-of-reading-data-in-HDFS" class="headerlink" title="The process of reading data in HDFS"></a>The process of reading data in HDFS</h2><p><img src="/2022/04/20/HDFS2/r.png" alt="r"></p>
+<center>The process of reading data in HDFS</center>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-20T21:20:23+08:00"
-              content="2022-04-20">
-          04-20
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/20/HDFS2/" itemprop="url">
-            <span itemprop="name">Hadoop(HDFS) —Write/Read process</span>
-          </a>
-      </div>
 
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-05T12:58:54+08:00"
-              content="2022-04-05">
-          04-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/05/HDFS1/" itemprop="url">
-            <span itemprop="name">Hadoop(HDFS) —Intro</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+<p><strong>Step 1:</strong> The client requests the NameNode to download the file through DistributedFileSystem, and the NameNode finds the DataNode address where the file block is located by querying the metadata.</p>
+<p><strong>Step 2:</strong> Choose a DataNode (usually the nearest) server and request to read the data.</p>
+<p><strong>Step 3:</strong> DataNode starts transmitting data to the client (reading the data input stream from the disk and verifying it).</p>
+<p><strong>Step 4:</strong> The client receives files in packets, caches them locally, and writes to the target file.</p>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>In fact, the above description is not complete. In HDFS storage, the distance of nodes is also a very important factor that determines the location of nodes for replica storage. </p>
+<p>Similarly, the way DataNode stores data is also very interesting, so I’d like to mention it again here. After the communication pipeline is established, the DataNode will write data into the memory and disk simultaneously, which will improve the storage more efficient. At the same time, the DataNode will also open a new queue to receive the reply message from each node to ensure the successful writing of the data.</p>
+<p>After having a basic understanding of the detailed process of writing and reading data in HDFS, it can help us better understand the working principle of HDFS and also make the concept of <strong>distribution</strong> of big data more clear.</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+
+              <a href="/tags/big-data/" rel="tag"><i class="fa fa-tag"></i>&nbsp;big data</a>
+
+              <a href="/tags/hadoop/" rel="tag"><i class="fa fa-tag"></i>&nbsp;hadoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/05/HDFS1/" rel="prev" title="Hadoop(HDFS) —Intro">
+      <i class="fa fa-chevron-left"></i> Hadoop(HDFS) —Intro
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -274,6 +352,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-process-of-writing-data-in-HDFS"><span class="nav-number">1.</span> <span class="nav-text">The process of writing data in HDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-process-of-reading-data-in-HDFS"><span class="nav-number">2.</span> <span class="nav-text">The process of reading data in HDFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">3.</span> <span class="nav-text">Summary</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

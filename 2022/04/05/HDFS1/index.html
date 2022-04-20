@@ -26,7 +26,7 @@
 
   <meta name="description" content="HDFS output background and definitionIn the era of information explosion, the data that people can obtain has increased exponentially, and the capacity of a single machine is often unable to store a l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop(HDFS)  partⅠ—Overview">
+<meta property="og:title" content="Hadoop(HDFS) —Intro">
 <meta property="og:url" content="http://example.com/2022/04/05/HDFS1/index.html">
 <meta property="og:site_name" content="Jacky&#39;s Blog">
 <meta property="og:description" content="HDFS output background and definitionIn the era of information explosion, the data that people can obtain has increased exponentially, and the capacity of a single machine is often unable to store a l">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://example.com/2022/04/05/HDFS1/1.png">
 <meta property="og:image" content="http://example.com/2022/04/05/HDFS1/2.png">
 <meta property="article:published_time" content="2022-04-05T04:58:54.464Z">
-<meta property="article:modified_time" content="2022-04-05T13:29:19.909Z">
+<meta property="article:modified_time" content="2022-04-20T16:39:34.381Z">
 <meta property="article:author" content="Jacky Mu">
 <meta property="article:tag" content="big data">
 <meta property="article:tag" content="hadoop">
@@ -54,7 +54,7 @@
   };
 </script>
 
-  <title>Hadoop(HDFS)  partⅠ—Overview | Jacky's Blog</title>
+  <title>Hadoop(HDFS) —Intro | Jacky's Blog</title>
   
 
 
@@ -187,7 +187,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hadoop(HDFS)  partⅠ—Overview
+          Hadoop(HDFS) —Intro
         </h1>
 
         <div class="post-meta">
@@ -296,7 +296,7 @@
 <p><strong>Example:</strong><br>When I upload a 322M file, the file can be found on port 9870. Checking the block information of this file, I find that the first block and the second block are both <em>134,217,728 bytes (128M)</em>, which is the default block size, while the size of the third block is <em>69,640,404 bytes (about 66M)</em>. The sum of these three block sizes is the size of the file.</p>
 <p><img src="/2022/04/05/HDFS1/2.png" alt="2"></p>
 <hr>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>The easiest way to operate HDFS is to use <strong>Shell commands</strong> inside the cluster. The <a target="_blank" rel="noopener" href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html">APACHE hadoop</a> official website has a detailed command guide.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>The easiest way to operate HDFS is to use <strong>Shell commands</strong> inside the cluster. The <a target="_blank" rel="noopener" href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html">APACHE Hadoop</a> official website has a detailed command guide.</p>
 <p>If you need to access the remote cluster in the Windows environment (office environment),  <strong>HDFS API</strong>  is a good solution. I usually write API operation code through <strong>Maven</strong>  because Maven can easily download dependent jar packages, and I strongly recommend that all beginners use Maven to build projects.</p>
 
     </div>
@@ -322,7 +322,10 @@
     <a href="/2022/03/23/carbon1/" rel="prev" title="Calculate the amount of carbon sequestered">
       <i class="fa fa-chevron-left"></i> Calculate the amount of carbon sequestered
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/20/HDFS2/" rel="next" title="Hadoop(HDFS) —Write/Read process">
+      Hadoop(HDFS) —Write/Read process <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -398,7 +401,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
