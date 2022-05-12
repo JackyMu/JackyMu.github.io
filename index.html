@@ -164,6 +164,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/26/HDFS3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/10.jpg">
+      <meta itemprop="name" content="Jacky Mu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jacky's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/26/HDFS3/" class="post-title-link" itemprop="url">Hadoop(HDFS) —Working mechanism for NameNode</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-04-26 14:25:33" itemprop="dateCreated datePublished" datetime="2022-04-26T14:25:33+08:00">2022-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Study-notes/" itemprop="url" rel="index"><span itemprop="name">Study notes</span></a>
+                </span>
+            </span>
+
+          
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>This time, I will elaborate on the internal principles of NameNode and SecondaryNameNode.</p>
+<h2 id="HOW-NameNode-WORK"><a href="#HOW-NameNode-WORK" class="headerlink" title="HOW NameNode WORK?"></a>HOW NameNode WORK?</h2><p>First, we need to consider where the metadata is stored in the NameNode.</p>
+<p>If the metadata is stored in the disk of the NameNode node, it must be too inefficient because random access is often required, and it is necessary to respond to customer requests. Therefore, metadata needs to be kept in memory. But if it only exists in memory, once the power is turned off, the metadata is lost, and the entire cluster cannot work. <strong>So there is a FsImage that backs up the metadata on disk.</strong></p>
+<p>But this will bring new problems. When the metadata in the memory is updated, if the FsImage is updated simultaneously,, the efficiency will be too low, but if it is not updated, a consistency problem will occur. Once the NameNode node is powered off, Data loss will occur. <strong>Therefore, the Edits file is introduced (append-only, which is very efficient).</strong> <u>Whenever metadata is updated or metadata is added, the metadata in memory is modified and appended to Edits.</u> In this way, once the NameNode node is powered off, the metadata can be synthesized by merging FsImage and Edits.</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/26/HDFS3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/20/HDFS2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -536,7 +615,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
