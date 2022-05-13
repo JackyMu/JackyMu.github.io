@@ -24,23 +24,25 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the st">
+  <meta name="description" content="Recently, I’m learning the very popular technology  webgis and found there’s a lot of interesting knowledge in it so I’m going to recoding my study notes in this and next few blogs. Outline of compute">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop(HDFS) —Working Mechanism for DataNode">
-<meta property="og:url" content="http://example.com/2022/05/01/HDFS4/index.html">
+<meta property="og:title" content="Preliminary Knowledge of Computer Network">
+<meta property="og:url" content="http://example.com/2022/05/13/webgis1/index.html">
 <meta property="og:site_name" content="Jacky&#39;s Blog">
-<meta property="og:description" content="In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the st">
+<meta property="og:description" content="Recently, I’m learning the very popular technology  webgis and found there’s a lot of interesting knowledge in it so I’m going to recoding my study notes in this and next few blogs. Outline of compute">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/05/01/HDFS4/DN.png">
-<meta property="article:published_time" content="2022-05-01T05:07:59.000Z">
-<meta property="article:modified_time" content="2022-05-13T09:41:47.560Z">
+<meta property="og:image" content="http://example.com/2022/05/13/webgis1/NetworkTopologies.png">
+<meta property="og:image" content="http://example.com/2022/05/13/webgis1/OSI-16524515255575.png">
+<meta property="og:image" content="http://example.com/2022/05/13/webgis1/TCPIP.png">
+<meta property="article:published_time" content="2022-05-13T09:58:14.000Z">
+<meta property="article:modified_time" content="2022-05-13T15:11:32.095Z">
 <meta property="article:author" content="Jacky Mu">
-<meta property="article:tag" content="big data">
-<meta property="article:tag" content="hadoop">
+<meta property="article:tag" content="gis">
+<meta property="article:tag" content="webgis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/05/01/HDFS4/DN.png">
+<meta name="twitter:image" content="http://example.com/2022/05/13/webgis1/NetworkTopologies.png">
 
-<link rel="canonical" href="http://example.com/2022/05/01/HDFS4/">
+<link rel="canonical" href="http://example.com/2022/05/13/webgis1/">
 
 
 <script id="page-configurations">
@@ -53,7 +55,7 @@
   };
 </script>
 
-  <title>Hadoop(HDFS) —Working Mechanism for DataNode | Jacky's Blog</title>
+  <title>Preliminary Knowledge of Computer Network | Jacky's Blog</title>
   
 
 
@@ -173,7 +175,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/01/HDFS4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/13/webgis1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/10.jpg">
@@ -186,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hadoop(HDFS) —Working Mechanism for DataNode
+          Preliminary Knowledge of Computer Network
         </h1>
 
         <div class="post-meta">
@@ -196,7 +198,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-05-01 13:07:59" itemprop="dateCreated datePublished" datetime="2022-05-01T13:07:59+08:00">2022-05-01</time>
+              <time title="Created: 2022-05-13 17:58:14" itemprop="dateCreated datePublished" datetime="2022-05-13T17:58:14+08:00">2022-05-13</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,8 +226,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2022/05/01/HDFS4/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/01/HDFS4/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/05/13/webgis1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/13/webgis1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,22 +242,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the storage information of DataNodes  and transmits commands to them.</p>
-<h2 id="HOW-NameNode-WORK"><a href="#HOW-NameNode-WORK" class="headerlink" title="HOW NameNode WORK?"></a>HOW NameNode WORK?</h2><p><img src="/2022/05/01/HDFS4/DN.png" alt="DN"></p>
+        <p>Recently, I’m learning the very popular technology  <strong>webgis</strong> and found there’s a lot of interesting knowledge in it so I’m going to recoding my study notes in this and next few blogs.</p>
+<h2 id="Outline-of-computer-network"><a href="#Outline-of-computer-network" class="headerlink" title="Outline of computer network"></a>Outline of computer network</h2><p>A computer network is a set of computers sharing resources located on or provided by network nodes. The computers use stanard <strong>communication protocols</strong> over digital interconnections to communicate with each other. These interconnections are made up of telecommunication network technologies, based on physically wired, optical, and wireless radio-frequency methods that may be arranged in a variety of network topologies.</p>
 <span id="more"></span>
+<p>Before the advent of computer networks, the exchange of information spread through magnetic disc. The development of computer networks since the 1960s can be roughly divided into four development stages.</p>
 <ol>
-<li>A data block is stored on the disk in the form of a file on the DataNode, including two files, one is the data itself, and the other is metadata which contains the length of the data block, the checksum of the block data, and the timestamp.</li>
-<li>After the DataNode starts up, it registers with the NameNode.</li>
-<li>After passing, DataNode periodically (6 hours) report all block information to the NameNode.</li>
-<li>The heartbeat is once every 3 seconds. It returns the result with the command from the NameNode to the DataNode, such as copying block data to another machine or deleting a data block. If a heartbeat is not received from a DataNode for more than 10 minutes, the node is considered unavailable.</li>
+<li><p>Remote connection stage</p>
+<p>Before the 1960s, remote online systems were contredon a single computer. Such a network is a <strong>master-slave structure characterized by a single computer</strong> with autonomous processing capabilities. A computer and multiple terminals without autonomous processing functions form a network.</p>
+</li>
+<li><p>Computer interconnection stage</p>
+<p>This stage is a <strong>multiprocessing center</strong> formed by interconnecting several computers. The main body of communication is a computer with independent processing capability, which realizes communication and resource sharing among multiple computers.</p>
+</li>
+<li><p>Standardization network stage</p>
+<p><strong>The OSI reference model</strong> (OSI seven-layer model) promulgated by ISO in 1984 created a new era of computer networks with unified network architecture and compliance with international standardized protocols. It has extensively promoted the standardization of network technology and laid a good foundation for the popularization of the network. This also marks the birth of the third generation of computer networks.</p>
+</li>
+<li><p>Network interconnection and the development of high-speed network system stage</p>
+<p>In the 1990s, computer technology, communication technology and computer network technology based on interconnected computer network technology developed rapidly. <strong>The Internet is a large-scale Internet network</strong> that realizes the interconnection of multiple wide area networks and local area networks through routers. It plays an immeasurable role in promoting the development of world science, culture, economy and society.</p>
+<hr>
+</li>
 </ol>
+<h2 id="Classification-of-computer-networks"><a href="#Classification-of-computer-networks" class="headerlink" title="Classification of computer networks"></a>Classification of computer networks</h2><p>According to the geographical coverage of the network, it can be roughly divided into <strong>Local area network(LAN), Metropolitan area network(MAN), Wide area network(WAN) and Internet</strong>.</p>
+<p>It can also be divided according to the <strong>network topology</strong>. The physical or geographic locations of network nodes and links generally have relatively little effect on a network, but the topology of interconnections of a network can significantly affect its throughput and reliability. </p>
+<p>Common layouts include:</p>
+<ul>
+<li><p><strong>Bus network:</strong> all nodes are connected to a common medium along this medium. This was the layout used in the original Ethernet, called 10BASE5 and 10BASE2. This is still a common topology on the data link layer, although modern physical layer variants use point-to-point links instead, forming a star or a tree.</p>
+</li>
+<li><p><strong>Star network:</strong> all nodes are connected to a special central node. This is the typical layout found in a small switched Ethernet LAN, where each client connects to a central network switch, and logically in a wireless LAN, where each wireless client associates with the central wireless access point.</p>
+</li>
+<li><p><strong>Ring network:</strong> each node is connected to its left and right neighbour node, such that all nodes are connected and that each node can reach each other node by traversing nodes left- or rightwards. Token ring networks, and the Fiber Distributed Data Interface (FDDI), made use of such a topology.</p>
+</li>
+<li><p><strong>Mesh network:</strong> each node is connected to an arbitrary number of neighbours in such a way that there is at least one traversal from any node to any other.</p>
+</li>
+<li><p><strong>Tree network:</strong> nodes are arranged hierarchically. This is the natural topology for a larger Ethernet network with multiple switches and without redundant meshing.</p>
+<p><img src="/2022/05/13/webgis1/NetworkTopologies.png" alt="NetworkTopologies"></p>
 <hr>
-<h2 id="Ensure-data-integrity"><a href="#Ensure-data-integrity" class="headerlink" title="Ensure data integrity"></a>Ensure data integrity</h2><p>Think about a problem. If the data stored in the computer disk is the red light signal and the green light signal that controla the high-speed rail signal light, but the disk storing is broken, it always displays the green light, which is very dangerous. In the same way, if the data on the DataNode node is damaged,  how to solve this potential data danger?</p>
-<p>DataNode has its own method to ensure data integrity.</p>
-<p>When the DataNode reads the Block, it calculates CheckSum. If the calculated CheckSum is different from the value when the Block was created, it means that the Block is damaged, and the Client reads the Blocks on other DataNodes. </p>
-<p>Common checksum algorithms include crc(32), md5(128), sha1(160). The DataNode periodically validates CheckSum after its file is created.</p>
+</li>
+</ul>
+<h2 id="Computer-Network-Protocols-and-Architectures"><a href="#Computer-Network-Protocols-and-Architectures" class="headerlink" title="Computer Network Protocols and Architectures"></a>Computer Network Protocols and Architectures</h2><p><strong>Protocol:</strong> A rule, standard, or convention established for the exchange of data in a computer network.</p>
+<p><strong>Architecture:</strong> The computer network adopts a layered structure, and each layer implements relatively independent functions. Each layer does not need to know how the next layer is implemented, as long as it knows what services the lower layer can provide, through what interfaces to provide services, and what services this layer needs to provide to the upper layer. <strong>The collection of layers of computer networks and their protocols is called computer network architecture.</strong></p>
+<p>There are two types of computer network architectures: <strong>Open System Internetwork Reference Model</strong> and  <strong>TCP/IPreference model.</strong></p>
+<ul>
+<li><p>The Open Systems Interconnection model (OSI model) is a conceptual model that describes the universal standard of communication functions of a telecommunication system or computing system without any regard to the system’s underlying internal technology and specific protocol suites. Therefore, the objective is the interoperability of all diverse communication systems containing standard communication protocols, through the encapsulation and de-encapsulation of data, for all networked communication.</p>
+<p>The model partitions the flow of data in a communication system into <strong>seven abstraction layers</strong>, to describe networked communication from the physical implementation of transmitting bits across a communications medium to the highest-level representation of data of a distributed application. Each intermediate layer serves a class of functionality to the layer above it and is served by the layer below it. Classes of functionality are realized in all software development through all and any standardized communication protocols.</p>
+<p><img src="/2022/05/13/webgis1/OSI-16524515255575.png" alt="OSI"></p>
+</li>
+<li><p>The <strong>Internet protocol suite</strong>, commonly known as <strong>TCP/IP</strong>, is the set of communications protocols used in the Internet and similar computer networks. The current foundational protocols in the suite are the Transmission Control Protocol (TCP) and the Internet Protocol (IP), as well as the User Datagram Protocol (UDP).</p>
+<p>The Internet protocol suite provides end-to-end data communication specifying how data should be packetized, addressed, transmitted, routed, and received. This functionality is organized into four abstraction layers, which classify all related protocols according to each protocol’s scope of networking. From lowest to highest, the layers are the <strong>Network interface layer</strong>, containing communication methods for data that remains within a single network segment (link); the <strong>internetwork layer</strong>, providing internetworking between independent networks; the <strong>transport layer,</strong> handling host-to-host communication; and the <strong>application layer</strong>, providing process-to-process data exchange for applications.</p>
+<p><img src="/2022/05/13/webgis1/TCPIP.png" alt="TCPIP"></p>
+</li>
+</ul>
+<p>The two reference models can provide developers with a necessary, common concept to develop a complete framework that can be used to explain the connection of different systems. The specific functions and implementation protocols of each layer are relatively complex. Each layer is also implemented by specific network interconnection devices, such as hubs, switches, routers, gateways, etc. This blog simply lists the composition and general functions of the model. Here I recommend the book  <u>Computer Networking A Top-Down Approach</u> to learning more.</p>
 <hr>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>The DataNode is an crucial way for HDFS to store files, and the way it communicates with the NameNode enables HDFS to obtain the stored data on each DataNode and send commands. DataNode also has a method to ensure data integrity by checking algorithm. In addition, the heartbeat mechanism can check whether the DataNode node is online or not and judge the node as dead after a certain period of disconnection.</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>This blog briefly introduces the <strong>concept, development and classification</strong> of computer networks and has a preliminary understanding of the <strong>protocols and architecture of computer networks</strong>. These are the keys to stepping into the world of computer networks.</p>
+<p>Next time I will try to introduce the role and division of <strong>IP addresses in the Internet Protocol,</strong> which is one step closer to our daily network use.</p>
 
     </div>
 
@@ -266,9 +305,9 @@
       <footer class="post-footer">
           <div class="post-tags">
 
-              <a href="/tags/big-data/" rel="tag"><i class="fa fa-tag"></i>&nbsp;big data</a>
+              <a href="/tags/gis/" rel="tag"><i class="fa fa-tag"></i>&nbsp;gis</a>
 
-              <a href="/tags/hadoop/" rel="tag"><i class="fa fa-tag"></i>&nbsp;hadoop</a>
+              <a href="/tags/webgis/" rel="tag"><i class="fa fa-tag"></i>&nbsp;webgis</a>
           </div>
 
         
@@ -277,8 +316,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/26/HDFS3/" rel="prev" title="Hadoop(HDFS) —Working Mechanism for NameNode">
-      <i class="fa fa-chevron-left"></i> Hadoop(HDFS) —Working Mechanism for NameNode
+    <a href="/2022/05/05/HDFS4/" rel="prev" title="Hadoop(HDFS) —Working Mechanism for DataNode">
+      <i class="fa fa-chevron-left"></i> Hadoop(HDFS) —Working Mechanism for DataNode
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -340,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HOW-NameNode-WORK"><span class="nav-number">1.</span> <span class="nav-text">HOW NameNode WORK?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ensure-data-integrity"><span class="nav-number">2.</span> <span class="nav-text">Ensure data integrity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">3.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Outline-of-computer-network"><span class="nav-number">1.</span> <span class="nav-text">Outline of computer network</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Classification-of-computer-networks"><span class="nav-number">2.</span> <span class="nav-text">Classification of computer networks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Computer-Network-Protocols-and-Architectures"><span class="nav-number">3.</span> <span class="nav-text">Computer Network Protocols and Architectures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">4.</span> <span class="nav-text">Summary</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -356,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -369,7 +408,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
