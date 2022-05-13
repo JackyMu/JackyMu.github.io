@@ -24,15 +24,23 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Jacky&#39;s Blog">
-<meta property="og:url" content="http://example.com/archives/2022/index.html">
+  <meta name="description" content="In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the st">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop(HDFS) —Working Mechanism for DataNode">
+<meta property="og:url" content="http://example.com/2022/05/01/HDFS4/index.html">
 <meta property="og:site_name" content="Jacky&#39;s Blog">
+<meta property="og:description" content="In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the st">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/05/01/HDFS4/DN.png">
+<meta property="article:published_time" content="2022-05-01T05:07:59.000Z">
+<meta property="article:modified_time" content="2022-05-13T09:41:47.560Z">
 <meta property="article:author" content="Jacky Mu">
+<meta property="article:tag" content="big data">
+<meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/05/01/HDFS4/DN.png">
 
-<link rel="canonical" href="http://example.com/archives/2022/">
+<link rel="canonical" href="http://example.com/2022/05/01/HDFS4/">
 
 
 <script id="page-configurations">
@@ -40,12 +48,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Jacky's Blog</title>
+  <title>Hadoop(HDFS) —Working Mechanism for DataNode | Jacky's Blog</title>
   
 
 
@@ -158,156 +166,134 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/01/HDFS4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/10.jpg">
+      <meta itemprop="name" content="Jacky Mu">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jacky's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hadoop(HDFS) —Working Mechanism for DataNode
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-05-01 13:07:59" itemprop="dateCreated datePublished" datetime="2022-05-01T13:07:59+08:00">2022-05-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Study-notes/" itemprop="url" rel="index"><span itemprop="name">Study notes</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 6 posts in total. Keep on posting.</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2022/05/01/HDFS4/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/01/HDFS4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-05-01T13:07:59+08:00"
-              content="2022-05-01">
-          05-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/01/HDFS4/" itemprop="url">
-            <span itemprop="name">Hadoop(HDFS) —Working Mechanism for DataNode</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-26T14:25:33+08:00"
-              content="2022-04-26">
-          04-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/26/HDFS3/" itemprop="url">
-            <span itemprop="name">Hadoop(HDFS) —Working Mechanism for NameNode</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-20T21:20:23+08:00"
-              content="2022-04-20">
-          04-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/20/HDFS2/" itemprop="url">
-            <span itemprop="name">Hadoop(HDFS) —Write/Read process</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-04-05T12:58:54+08:00"
-              content="2022-04-05">
-          04-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/05/HDFS1/" itemprop="url">
-            <span itemprop="name">Hadoop(HDFS) —Intro</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-03-23T11:03:17+08:00"
-              content="2022-03-23">
-          03-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/03/23/carbon1/" itemprop="url">
-            <span itemprop="name">Calculate the amount of carbon sequestered</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-03-10T20:57:45+08:00"
-              content="2022-03-10">
-          03-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/03/10/Carbon/" itemprop="url">
-            <span itemprop="name">Behind the electric vehicle boom</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the storage information of DataNodes  and transmits commands to them.</p>
+<h2 id="HOW-NameNode-WORK"><a href="#HOW-NameNode-WORK" class="headerlink" title="HOW NameNode WORK?"></a>HOW NameNode WORK?</h2><p><img src="/2022/05/01/HDFS4/DN.png" alt="DN"></p>
+<span id="more"></span>
+<ol>
+<li>A data block is stored on the disk in the form of a file on the DataNode, including two files, one is the data itself, and the other is metadata which contains the length of the data block, the checksum of the block data, and the timestamp.</li>
+<li>After the DataNode starts up, it registers with the NameNode.</li>
+<li>After passing, DataNode periodically (6 hours) report all block information to the NameNode.</li>
+<li>The heartbeat is once every 3 seconds. It returns the result with the command from the NameNode to the DataNode, such as copying block data to another machine or deleting a data block. If a heartbeat is not received from a DataNode for more than 10 minutes, the node is considered unavailable.</li>
+</ol>
+<hr>
+<h2 id="Ensure-data-integrity"><a href="#Ensure-data-integrity" class="headerlink" title="Ensure data integrity"></a>Ensure data integrity</h2><p>Think about a problem. If the data stored in the computer disk is the red light signal and the green light signal that controla the high-speed rail signal light, but the disk storing is broken, it always displays the green light, which is very dangerous. In the same way, if the data on the DataNode node is damaged,  how to solve this potential data danger?</p>
+<p>DataNode has its own method to ensure data integrity.</p>
+<p>When the DataNode reads the Block, it calculates CheckSum. If the calculated CheckSum is different from the value when the Block was created, it means that the Block is damaged, and the Client reads the Blocks on other DataNodes. </p>
+<p>Common checksum algorithms include crc(32), md5(128), sha1(160). The DataNode periodically validates CheckSum after its file is created.</p>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>The DataNode is an crucial way for HDFS to store files, and the way it communicates with the NameNode enables HDFS to obtain the stored data on each DataNode and send commands. DataNode also has a method to ensure data integrity by checking algorithm. In addition, the heartbeat mechanism can check whether the DataNode node is online or not and judge the node as dead after a certain period of disconnection.</p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+
+              <a href="/tags/big-data/" rel="tag"><i class="fa fa-tag"></i>&nbsp;big data</a>
+
+              <a href="/tags/hadoop/" rel="tag"><i class="fa fa-tag"></i>&nbsp;hadoop</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/04/26/HDFS3/" rel="prev" title="Hadoop(HDFS) —Working Mechanism for NameNode">
+      <i class="fa fa-chevron-left"></i> Hadoop(HDFS) —Working Mechanism for NameNode
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -354,6 +340,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HOW-NameNode-WORK"><span class="nav-number">1.</span> <span class="nav-text">HOW NameNode WORK?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ensure-data-integrity"><span class="nav-number">2.</span> <span class="nav-text">Ensure data integrity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">3.</span> <span class="nav-text">Summary</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
