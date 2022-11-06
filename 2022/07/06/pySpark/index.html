@@ -24,23 +24,28 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the st">
+  <meta name="description" content="Software Versions and ToolsJDK8 Spark-2.4.3: Download Hadoop-2.7.1: Download winutils-master: Download  Installation Steps1. Install Hadoop Unzip the winutils and Hadoop compressed packages. When usin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop(HDFS) —Working Mechanism for DataNode">
-<meta property="og:url" content="http://example.com/2022/05/05/HDFS4/index.html">
+<meta property="og:title" content="Install and Configure PySpark on Windows">
+<meta property="og:url" content="http://example.com/2022/07/06/pySpark/index.html">
 <meta property="og:site_name" content="Jacky&#39;s Blog">
-<meta property="og:description" content="In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the st">
+<meta property="og:description" content="Software Versions and ToolsJDK8 Spark-2.4.3: Download Hadoop-2.7.1: Download winutils-master: Download  Installation Steps1. Install Hadoop Unzip the winutils and Hadoop compressed packages. When usin">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/2022/05/05/HDFS4/DN.png">
-<meta property="article:published_time" content="2022-05-05T05:07:59.000Z">
-<meta property="article:modified_time" content="2022-05-13T12:45:58.411Z">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106121315017.png">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106121625608.png">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106121633067.png">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106132445869.png">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106132648776.png">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106132738951.png">
+<meta property="og:image" content="http://example.com/2022/07/06/pySpark/image-20221106133405735.png">
+<meta property="article:published_time" content="2022-07-06T03:21:51.000Z">
+<meta property="article:modified_time" content="2022-11-06T06:02:27.921Z">
 <meta property="article:author" content="Jacky Mu">
 <meta property="article:tag" content="big data">
-<meta property="article:tag" content="hadoop">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/05/05/HDFS4/DN.png">
+<meta name="twitter:image" content="http://example.com/2022/07/06/pySpark/image-20221106121315017.png">
 
-<link rel="canonical" href="http://example.com/2022/05/05/HDFS4/">
+<link rel="canonical" href="http://example.com/2022/07/06/pySpark/">
 
 
 <script id="page-configurations">
@@ -53,7 +58,7 @@
   };
 </script>
 
-  <title>Hadoop(HDFS) —Working Mechanism for DataNode | Jacky's Blog</title>
+  <title>Install and Configure PySpark on Windows | Jacky's Blog</title>
   
 
 
@@ -173,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/05/HDFS4/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/06/pySpark/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/10.jpg">
@@ -186,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hadoop(HDFS) —Working Mechanism for DataNode
+          Install and Configure PySpark on Windows
         </h1>
 
         <div class="post-meta">
@@ -196,7 +201,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2022-05-05 13:07:59" itemprop="dateCreated datePublished" datetime="2022-05-05T13:07:59+08:00">2022-05-05</time>
+              <time title="Created: 2022-07-06 11:21:51" itemprop="dateCreated datePublished" datetime="2022-07-06T11:21:51+08:00">2022-07-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,8 +229,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2022/05/05/HDFS4/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/05/HDFS4/" itemprop="commentCount"></span>
+    <a title="valine" href="/2022/07/06/pySpark/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/07/06/pySpark/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -240,22 +245,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>In the previous Blog , we have already known NameNode is the supervisor and manager of the system and DataNodes store data and excute commands. This time I want to explain how NameNode acquires the storage information of DataNodes  and transmits commands to them.</p>
-<h2 id="HOW-NameNode-WORK"><a href="#HOW-NameNode-WORK" class="headerlink" title="HOW NameNode WORK?"></a>HOW NameNode WORK?</h2><p><img src="/2022/05/05/HDFS4/DN.png" alt="DN"></p>
+        <h3 id="Software-Versions-and-Tools"><a href="#Software-Versions-and-Tools" class="headerlink" title="Software Versions and Tools"></a>Software Versions and Tools</h3><p>JDK8</p>
+<p>Spark-2.4.3: <a target="_blank" rel="noopener" href="https://blog-1310034074.cos.ap-hongkong.myqcloud.com/BigData/spark-2.4.3-bin-hadoop2.7.tgz">Download</a></p>
+<p>Hadoop-2.7.1: <a target="_blank" rel="noopener" href="https://blog-1310034074.cos.ap-hongkong.myqcloud.com/BigData/hadoop-2.7.1.tar.gz">Download</a></p>
+<p>winutils-master: <a target="_blank" rel="noopener" href="https://blog-1310034074.cos.ap-hongkong.myqcloud.com/BigData/winutils-master.zip">Download</a></p>
+<hr>
+<h3 id="Installation-Steps"><a href="#Installation-Steps" class="headerlink" title="Installation Steps"></a>Installation Steps</h3><p><strong>1. Install Hadoop</strong></p>
+<p>Unzip the <em>winutils</em> and <em>Hadoop</em> compressed packages. When using IDEA to develop <strong>spark</strong> programs, you need to simulate the <em>Hadoop</em> environment in the development environment. Otherwise, every time you need to hit the jar to the cluster environment to execute the debugging program, which will seriously affect the development efficiency. </p>
+<p>winutils is the Hadoop debugging environment tool required on Windows system, which contains some essential tools needed to debug Hadoop and Spark on Windows.</p>
 <span id="more"></span>
-<ol>
-<li>A data block is stored on the disk in the form of a file on the DataNode, including two files, one is the data itself, and the other is metadata which contains the length of the data block, the checksum of the block data, and the timestamp.</li>
-<li>After the DataNode starts up, it registers with the NameNode.</li>
-<li>After passing, DataNode periodically (6 hours) report all block information to the NameNode.</li>
-<li>The heartbeat is once every 3 seconds. It returns the result with the command from the NameNode to the DataNode, such as copying block data to another machine or deleting a data block. If a heartbeat is not received from a DataNode for more than 10 minutes, the node is considered unavailable.</li>
-</ol>
+<p>Enter the winutils directory, copy and paste all its contents into the Hadoop installation directory’s bin directory, and add or replace some files.</p>
+<p>Right-click <em>My Computer - Properties - Advanced System Settings - Environment Variables</em>, create a new system variable, set the variable name to <strong>HADOOP_HOME</strong>, and the variable value is the file directory address replaced in the previous step.</p>
+<p><img src="/2022/07/06/pySpark/image-20221106121315017.png" alt="image-20221106121315017"></p>
+<p>Find the <strong>Path</strong> variable, double-click it to open the edit dialogue, select New Variable, and point to the bin directory of Hadoop.</p>
+<p><img src="/2022/07/06/pySpark/image-20221106121625608.png" alt="image-20221106121625608"></p>
+<p>Open the <strong>etc</strong> directory under the Hadoop folder, modify the <strong>hadoop.env.cmd</strong> file, and change JAVA_HOME to the address pointed to by the system variable.</p>
+<p><img src="/2022/07/06/pySpark/image-20221106121633067.png" alt="image-20221106121633067"></p>
 <hr>
-<h2 id="Ensure-data-integrity"><a href="#Ensure-data-integrity" class="headerlink" title="Ensure data integrity"></a>Ensure data integrity</h2><p>Think about a problem. If the data stored in the computer disk is the red light signal and the green light signal that controla the high-speed rail signal light, but the disk storing is broken, it always displays the green light, which is very dangerous. In the same way, if the data on the DataNode node is damaged,  how to solve this potential data danger?</p>
-<p><strong>DataNode has its own method to ensure data integrity.</strong></p>
-<p>When the DataNode reads the Block, it calculates CheckSum. If the calculated CheckSum is different from the value when the Block was created, it means that the Block is damaged, and the Client reads the Blocks on other DataNodes. </p>
-<p>Common checksum algorithms include crc(32), md5(128), sha1(160). The DataNode periodically validates CheckSum after its file is created.</p>
+<p><strong>2.Install Python</strong></p>
+<p>   As Hadoop2.7 and Spark 2.4 can only use Python3.6, we use <strong>Anaconda</strong> to build the Python environment. After installing Anaconda, open Anaconda Navigator, select <strong>Environments</strong> and create a new Python3.6.13 environment.</p>
+<p>   <img src="/2022/07/06/pySpark/image-20221106132445869.png" alt="image-20221106132445869"></p>
 <hr>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>The DataNode is an crucial way for HDFS to store files, and the way it communicates with the NameNode enables HDFS to obtain the stored data on each DataNode and send commands. DataNode also has a method to ensure data integrity by checking algorithm. In addition, the heartbeat mechanism can check whether the DataNode node is online or not and judge the node as dead after a certain period of disconnection.</p>
+<p><strong>3.Install Spark</strong></p>
+<p>   Unzip Spark and put it in the same directory as Hadoop, and configure environment variables. Copy <strong>PySpark</strong> in the Spark directory to the Lib directory in the Python environment.</p>
+<p>   <img src="/2022/07/06/pySpark/image-20221106132648776.png" alt="image-20221106132648776"></p>
+<p>   Enter the Scripts directory in the Python environment, and use <em>pip install py4j</em> to install <strong>py4j</strong>. Py4J is a library written in Python and Java. Through Py4J, Python programs can dynamically access Java objects in the Java virtual machine, and Java programs can also call back Python objects.</p>
+<p>   <img src="/2022/07/06/pySpark/image-20221106132738951.png" alt="image-20221106132738951"></p>
+<p>   Open cmd and enter <em>spark-shell</em>. At this point, the Spark configuration is successful.</p>
+<hr>
+<p><strong>4.Running PySpark</strong></p>
+<p>   Write a test code in <strong>Spyder.</strong> Here, the wordcount program that counts the number of occurrences of words is used. After writing, save it for easy operation.</p>
+   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">@author: JackyMu</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> pyspark <span class="keyword">import</span> SparkConf, SparkContext</span><br><span class="line"></span><br><span class="line">conf = SparkConf().setAppName(<span class="string">&quot;WordCount&quot;</span>).setMaster(<span class="string">&quot;local&quot;</span>)</span><br><span class="line">sc = SparkContext(conf=conf)</span><br><span class="line">inputFile = <span class="string">&quot;&quot;</span> <span class="comment">#file location</span></span><br><span class="line">textFile = sc.textFile(inputFile)</span><br><span class="line">wordCount = textFile.flatMap(<span class="keyword">lambda</span> line: line.split(<span class="string">&quot; &quot;</span>)).<span class="built_in">map</span>(<span class="keyword">lambda</span> word: (word, <span class="number">1</span>)).reduceByKey(<span class="keyword">lambda</span> a, b: a + b)</span><br><span class="line">wordCount.foreach(<span class="built_in">print</span>)</span><br></pre></td></tr></table></figure>
+<p>   Open the <strong>Anaconda prompt</strong>, enter activate python36 on the command line to activate the python environment, use the command to run the program file saved in the previous step.</p>
+<p>   <img src="/2022/07/06/pySpark/image-20221106133405735.png" alt="image-20221106133405735"></p>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>This blog briefly introduces the installation and configuration of PySpark under windows. When executing tasks, you can also enter <u>localhost:4040</u> in the browser to enter the task program control page started by spark.</p>
 
     </div>
 
@@ -267,8 +291,6 @@
           <div class="post-tags">
 
               <a href="/tags/big-data/" rel="tag"><i class="fa fa-tag"></i>&nbsp;big data</a>
-
-              <a href="/tags/hadoop/" rel="tag"><i class="fa fa-tag"></i>&nbsp;hadoop</a>
           </div>
 
         
@@ -277,13 +299,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/04/26/HDFS3/" rel="prev" title="Hadoop(HDFS) —Working Mechanism for NameNode">
-      <i class="fa fa-chevron-left"></i> Hadoop(HDFS) —Working Mechanism for NameNode
+    <a href="/2022/05/13/webgis1/" rel="prev" title="Preliminary Knowledge of Computer Network">
+      <i class="fa fa-chevron-left"></i> Preliminary Knowledge of Computer Network
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/13/webgis1/" rel="next" title="Preliminary Knowledge of Computer Network">
-      Preliminary Knowledge of Computer Network <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -343,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HOW-NameNode-WORK"><span class="nav-number">1.</span> <span class="nav-text">HOW NameNode WORK?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ensure-data-integrity"><span class="nav-number">2.</span> <span class="nav-text">Ensure data integrity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">3.</span> <span class="nav-text">Summary</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Software-Versions-and-Tools"><span class="nav-number">1.</span> <span class="nav-text">Software Versions and Tools</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Installation-Steps"><span class="nav-number">2.</span> <span class="nav-text">Installation Steps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">3.</span> <span class="nav-text">Summary</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
